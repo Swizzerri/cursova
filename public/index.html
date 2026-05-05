@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BusTravel - Бронирование билетов</title>
+  
+  <!-- Шрифты -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Стили -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Анимированный фон -->
+  <canvas id="particles-canvas"></canvas>
+
+  <div class="container glass-card">
+    <!-- ШАПКА -->
+    <header class="header">
+      <div class="logo">
+        <h1>🚌 BusTravel</h1>
+        <p>Быстро. Удобно. Онлайн.</p>
+      </div>
+      <div class="auth-panel">
+        <!-- При клике открывается профиль -->
+        <span id="userNameDisplay" class="user-greeting" onclick="openProfileModal()">Гость</span>
+        <button id="loginBtn" onclick="openAuthModal('login')">🔐 Войти</button>
+        <button id="logoutBtn" class="logout-btn" onclick="logoutUser()" style="display:none;">🚪 Выйти</button>
+      </div>
+    </header>
+
+    <!-- ВКЛАДКИ НАВИГАЦИИ -->
+    <nav class="tabs">
+      <button class="tab-btn active" onclick="switchTab('routes', this)">🚌 Маршруты</button>
+      <button class="tab-btn" onclick="switchTab('bookings', this)"> Мои билеты</button>
+      <button class="tab-btn" onclick="switchTab('about', this)">ℹ️ О нас</button>
+    </nav>
+
+    <!-- КОНТЕНТ: МАРШРУТЫ -->
+    <main id="routesTab" class="tab-content active-tab">
+      <div class="routes-grid" id="routesContainer">
+        <p style="color:#94a3b8; grid-column: 1/-1; text-align:center;">Загрузка маршрутов...</p>
+      </div>
+    </main>
+
+    <!-- КОНТЕНТ: МОИ БИЛЕТЫ -->
+    <main id="bookingsTab" class="tab-content">
+      <h2 style="color:white; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
+        🎫 Мои поездки
+      </h2>
+      <div class="my-bookings-list" id="bookingsContainer">
+        <p style="color:#94a3b8; text-align: center; padding: 2rem;">
+          Войдите в аккаунт, чтобы увидеть ваши билеты.
+        </p>
+      </div>
+    </main>
+
+    <!-- КОНТЕНТ: О НАС -->
+    <main id="aboutTab" class="tab-content">
+      <div style="color:white; max-width: 800px; margin: 0 auto; line-height: 1.7;">
+        <h2 style="color: #FFB347; margin-bottom: 1rem; font-size: 2rem;">🚌 О проекте BusTravel</h2>
+        <p style="color: #cbd5e1; margin-bottom: 1.5rem;">
+          BusTravel — современная платформа для онлайн-бронирования автобусных билетов. 
+          Мы объединяем надёжность перевозчиков и удобство цифровых технологий, чтобы ваши путешествия начинались с комфортом.
+        </p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 2.5rem 0;">
+          <div style="background: rgba(255,255,255,0.08); padding: 1.8rem; border-radius: 1.2rem; text-align: center; border: 1px solid rgba(255,255,255,0.1);">
+            <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">🔒</div>
+            <h3 style="color: #FFB347; margin-bottom: 0.5rem;">Безопасность</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem;">Шифрование данных и защита платежей</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.08); padding: 1.8rem; border-radius: 1.2rem; text-align: center; border: 1px solid rgba(255,255,255,0.1);">
+            <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">⚡</div>
+            <h3 style="color: #FFB347; margin-bottom: 0.5rem;">Скорость</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem;">Бронирование билета за 60 секунд</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.08); padding: 1.8rem; border-radius: 1.2rem; text-align: center; border: 1px solid rgba(255,255,255,0.1);">
+            <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">💬</div>
+            <h3 style="color: #FFB347; margin-bottom: 0.5rem;">Поддержка</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem;">Помощь пассажиров 24/7</p>
+          </div>
+        </div>
+
+        <div style="background: rgba(255,179,71,0.1); padding: 1.5rem; border-radius: 1rem; border-left: 4px solid #FFB347; margin-top: 2rem;">
+          <p style="margin: 0; color: #e2e8f0; font-size: 0.95rem;">
+            📍 <strong>Адрес:</strong> г. Москва, ул. Транспортная, д. 42<br>
+             <strong>Email:</strong> support@bustravel.ru<br>
+            📞 <strong>Телефон:</strong> 8 (800) 555-35-35
+          </p>
+        </div>
+        
+        <p style="color: #64748b; font-size: 0.85rem; text-align: center; margin-top: 2.5rem;">
+          © 2026 BusTravel. Курсовой проект. Все права защищены.
+        </p>
+      </div>
+    </main>
+  </div>
+
+  <!-- СКРИПТЫ -->
+  <script src="auth.js"></script>
+  <script>
+    // === ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК ===
+    function switchTab(tabName, btnElement) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active-tab'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById(tabName + 'Tab').classList.add('active-tab');
+      if (btnElement) btnElement.classList.add('active');
+    }
+
+    // === УВЕДОМЛЕНИЯ ===
+    function showNotification(msg, type = 'success') {
+      const el = document.createElement('div');
+      el.className = 'notification';
+      el.textContent = msg;
+      if (type === 'error') el.style.background = '#ef4444';
+      if (type === 'info') el.style.background = '#3b82f6';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 3500);
+    }
+    window.showNotification = showNotification;
+
+    // === АНИМАЦИЯ ЧАСТИЦ ===
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    let particles = [];
+    for(let i=0; i<60; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2 + 0.5,
+        d: Math.random() * 0.4 + 0.1,
+        o: Math.random() * 0.3 + 0.1
+      });
+    }
+    
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.o})`;
+        ctx.fill();
+        p.y -= p.d;
+        if(p.y < -10) {
+          p.y = canvas.height + 10;
+          p.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+    
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // === ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ ===
+    document.addEventListener('DOMContentLoaded', () => {
+      // Если используется расширенный auth.js, запускаем его инициализацию
+      if (typeof initApp === 'function') {
+        initApp();
+      } else {
+        // Fallback для базового auth.js из Knowledge Base
+        if (typeof loadUsers === 'function') loadUsers();
+        if (typeof loadUserSession === 'function') loadUserSession();
+        if (typeof renderRoutes === 'function') renderRoutes();
+      }
+    });
+  </script>
+</body>
+</html>
