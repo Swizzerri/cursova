@@ -37,27 +37,11 @@ function registerUser(name, email, password) {
     return { success: true, user: { id: newUser.id, name: newUser.name, email: newUser.email } };
 }
 
-window.logoutUser = function() {
-    currentUser = null;
-    localStorage.removeItem('busUserId'); // или 'busCurrentUser'
-    
-    // Обновляем кнопки в шапке
-    updateAuthUI();
-    
-    // === КЛЮЧЕВОЕ: очищаем контейнер билетов ===
-    const bookingsContainer = document.getElementById('bookingsContainer');
-    if (bookingsContainer) {
-        bookingsContainer.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:2rem">Войдите, чтобы увидеть билеты</p>';
-    }
-    
-    // Закрываем все модальные окна
-    document.querySelectorAll('.qr-modal').forEach(modal => modal.remove());
-    
-    // Переключаемся на вкладку маршрутов
-    if (typeof switchTab === 'function') switchTab('routes');
-    
-    showNotification('Вы вышли из аккаунта', 'info');
-};
+function loginUser(email, password) {
+    const user = users.find(u => u.email === email.toLowerCase() && u.password === password);
+    return user ? { success: true, user: { id: user.id, name: user.name, email: user.email } } 
+                : { success: false, error: 'Неверный email или пароль' };
+}
 
 function saveUserSession() {
     if (currentUser) localStorage.setItem('busCurrentUser', JSON.stringify(currentUser));
