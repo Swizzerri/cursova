@@ -8,10 +8,12 @@ let tempEmail = ''; // Временное хранение email для вери
 
 // Маршруты с фото
 const routesData = [
-    { id: 1, from: 'Москва', to: 'Санкт-Петербург', price: 1500, time: '08:00', img: 'https://images.unsplash.com/photo-1558231902-120029b46294?w=500&q=80' },
-    { id: 2, from: 'Казань', to: 'Нижний Новгород', price: 900, time: '14:30', img: 'https://images.unsplash.com/photo-1569683795645-b62e50fbf103?w=500&q=80' },
-    { id: 3, from: 'Сочи', to: 'Адлер', price: 450, time: '10:15', img: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=500&q=80' },
-    { id: 4, from: 'Екатеринбург', to: 'Челябинск', price: 600, time: '18:00', img: 'https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=500&q=80' }
+    { id: 1, from: "Москва", to: "Санкт-Петербург", duration: "7ч", price: 1450, image: "https://cdn.culture.ru/images/a0965465-3217-58e1-a3ab-3659a07cd2e8", cityPhoto: "https://i.ytimg.com/vi/ilUPzCADxoA/maxresdefault.jpg" },
+    { id: 2, from: "Москва", to: "Казань", duration: "11ч", price: 2100, image: "https://oneischool.com/wp-content/uploads/2024/11/k2.png", cityPhoto: "https://bigtrip.by/storage/organizations/12274/bswg1hub.jpg" },
+    { id: 3, from: "СПб", to: "Великий Новгород", duration: "3ч", price: 890, image: "https://avatars.mds.yandex.net/i?id=a9a0a94042d5ea0278dbcb32fa89efea33802246-5163220-images-thumbs&n=13", cityPhoto: "https://avatars.mds.yandex.net/i?id=4dae1242347d11906d1f323f3196e17f_l-8209870-images-thumbs&n=13" },
+    { id: 4, from: "Екатеринбург", to: "Тюмень", duration: "4ч", price: 1050, image: "https://avatars.mds.yandex.net/get-entity_search/9706867/1262386119/orig", cityPhoto: "https://blog.ufs-online.ru/media/7492/shutterstock_2001270581-min.jpg" },
+    { id: 5, from: "Новосибирск", to: "Томск", duration: "5ч", price: 1250, image: "https://avatars.mds.yandex.net/i?id=94ec4aad8f422add447220660ada7c1a_l-10401675-images-thumbs&n=13", cityPhoto: "https://cdni-vm.servicecdn.ru/2022.12/original/1200_63aaf78682682c1ec1a7cf31.jpg" },
+    { id: 6, from: "Краснодар", to: "Сочи", duration: "6ч", price: 1550, image: "https://avatars.mds.yandex.net/get-entity_search/7765675/1261541475/orig", cityPhoto: "https://avatars.mds.yandex.net/get-vertis-journal/4080458/169.jpg_1741332106837/orig" }
 ];
 
 // ============ ИНИЦИАЛИЗАЦИЯ ============
@@ -363,9 +365,9 @@ function renderRoutes() {
     
     container.innerHTML = routesData.map(route => `
         <div class="route-card" onclick="startBooking(${route.id})">
-            <div class="route-img" style="background-image: url('${route.img}')"></div>
+            <div class="route-img" style="background-image: url('${route.image}')"></div>
             <div class="route-title">${route.from} → ${route.to}</div>
-            <div class="route-details">🕐 Отправление: ${route.time}</div>
+            <div class="route-details">⏱️ В пути: ${route.duration}</div>
             <div style="color: #FFB347; font-weight: bold; font-size: 1.2rem; margin-top: 10px;">
                 ${route.price} ₽
             </div>
